@@ -12,7 +12,6 @@ abstract class Common
 
     abstract protected function auth();
     protected function beforeRun($method) {
-        $this->test();
         $methods = get_class_methods($this);
         if (!in_array($method, $methods)) {
             \core\Logger::errorLog('Warning : access to a undefined method: ' . $_SERVER['REQUEST_URI']);

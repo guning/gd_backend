@@ -17,4 +17,8 @@ include 'Loader.php';
 } catch (Exception $e) {
     var_dump($e->getMessage());
 }*/
-echo time();
+use core\Beanstalkd;
+$job = Beanstalkd::getInstance()->getMessage("2018042312");
+var_dump($job->getData());
+Beanstalkd::getInstance()->delete($job);
+

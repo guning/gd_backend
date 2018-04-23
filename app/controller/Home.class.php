@@ -7,12 +7,15 @@
  */
 
 include 'Common.class.php';
-use core\DB;
 use core\View;
 use app\model\Article;
 class Home extends Common
 {
     private $model;
+    protected function auth()
+    {
+        return true;
+    }
     public function __construct() {
         $this->model = new Article();
     }

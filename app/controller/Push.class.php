@@ -9,6 +9,8 @@
 include 'Common.class.php';
 
 use app\model\App;
+use app\model\Message;
+use app\model\Group;
 class Push extends Common
 {
     private $model = null;
@@ -17,7 +19,9 @@ class Push extends Common
     public function __construct()
     {
         $this->model = [
-            'app' => new App()
+            'app' => new App(),
+            'message' => new Message(),
+            'group' => new Group()
         ];
 
     }
@@ -46,15 +50,15 @@ class Push extends Common
                 $data = $this->getGroups($rdata['appid']);
                 break;
             case 'push':
-                $data = $this->pushMes(array(
-                    'appid' => (int) $rdata['appid'],
+                $data = $this->pushMes([
+                    'app_id' => (int) $rdata['appid'],
                     'platform' => (int) $rdata['platform'],
-                    'title' => substr($rdata['title'], 0, 20),
+                    'title' => substr($rdata['title'], 0, 10),
                     'content' => substr($rdata['content'], 0, 50),
-                    'group' => (int) $rdata['group']['type'],
-                    'target' => $rdata['group']['ext'],
-                    'time' => $rdata['time'] + time()
-                ));
+                    'target' => (int) $rdata['group']['type'],
+                    'target_extra' => $rdata['group']['ext'],
+                    'time' => $rdata['time']
+                ]);
                 break;
             default:
                 \core\Logger::errorLog('Warning : access to a undefined api: ' . $_SERVER['REQUEST_URI']);
@@ -70,6 +74,7 @@ class Push extends Common
 
     private function pushMes($data)
     {
+        $this->model['message']->insertMes($this->systemUserId, $data);
         return array();
     }
 
@@ -86,15 +91,6 @@ class Push extends Common
     }
     private function getGroups($appId)
     {
-        return array(
-            array(
-                'id' => 1,
-                'name' => 'group1'
-            ),
-            array(
-                'id' => 2,
-                'name' => 'group2'
-            )
-        );
+        return $this->model['group']->getGroups($this->systemUserId, $appId);
     }
 }

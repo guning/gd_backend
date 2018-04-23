@@ -11,22 +11,28 @@ namespace core;
 
 class Config
 {
-    public static function getConfig($configName = '') {
-        $config = [];
-        $dirHandle = opendir(APP_ROOT . 'config');
-        while ($file = readdir($dirHandle)) {
-            if ($file !== '.' && $file !== '..')
-                $tmp = include(APP_ROOT . 'config' . SLASH . $file);
-            if (!empty($config)) {
-                $config = @array_merge($config, $tmp);
-            } else {
-                $config = @array_merge(array(), $tmp);
+    private static $config = [];
+    public static function getConfig($configName = '')
+    {
+        if (empty(self::$config)) {
+            $dirHandle = opendir(APP_ROOT . 'config');
+            while ($file = readdir($dirHandle)) {
+                if ($file !== '.' && $file !== '..') {
+                    $tmp = include(APP_ROOT . 'config' . SLASH . $file);
+                } else {
+                    continue;
+                }
+                if (!empty(self::$config)) {
+                    self::$config = @array_merge(self::$config, $tmp);
+                } else {
+                    self::$config = @array_merge(array(), $tmp);
+                }
             }
         }
-        if (empty($configName) || empty($config[$configName])) {
-            return $config;
+        if (empty($configName) || empty(self::$config[$configName])) {
+            return self::$config;
         } else {
-            return $config[$configName];
+            return self::$config[$configName];
         }
     }
 }
