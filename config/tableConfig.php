@@ -25,11 +25,12 @@ return [
         [
             'table' => 'app',//message callback
             'field' => [
-                ['name', 'sys_user_id'],
-                ['char(20)', 'int(10)'],
+                ['name', 'sys_user_id', 'app_file'],
+                ['varchar(64)', 'int(10)', 'varchar(64)'],
                 [
                     'COLLATE utf8_unicode_ci',
                     'unsigned not null',
+                    'COLLATE utf8_unicode_ci',
                 ],
             ],
             'primary_key' => 'id',
@@ -135,7 +136,7 @@ return [
             'table' => 'app_user',
             'field' => [
                 ['name', 'sys_user_id', 'app_id', 'group_id'],
-                ['char(10)', 'int(10)', 'int(10)', 'int(10)'],
+                ['varchar(64)', 'int(10)', 'int(10)', 'int(10)'],
                 [
                     'COLLATE utf8_unicode_ci',
                     'unsigned not null',

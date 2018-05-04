@@ -7,6 +7,7 @@
  */
 $configs = [
     'log_path' => APP_ROOT . 'runtime' . SLASH . 'log' . SLASH,
+    'uploadLimit' => 20
 ];
 
 

@@ -9,6 +9,11 @@
 abstract class Common
 {
     protected $args = [];
+    protected static $response = [
+        'status' => 0,
+        'msg' => '',
+        'data' => []
+    ];
 
     abstract protected function auth();
     protected function beforeRun($method) {
@@ -20,6 +25,7 @@ abstract class Common
     }
 
     public function run($method, $args = []) {
+        $this->test();
         try {
             $this->beforeRun($method);
             if (!$this->auth()) {
@@ -42,5 +48,9 @@ abstract class Common
     protected function afterRun($content) {
         echo $content;
         exit;
+    }
+
+    protected function toJsonResponse() {
+        return json_encode(self::$response);
     }
 }

@@ -25,6 +25,6 @@ class Message extends Common
         $data = array_merge($rData, $tmp);
         $this->insert($data);
         $data['id'] = $this->getLastInsertId();
-        Beanstalkd::getInstance()->setMessage(date("YmdH"), json_encode($data),  $pushDelay);//每个小时一个tube
+        Beanstalkd::getInstance()->setMessage('msg', json_encode($data),  $pushDelay);//每个小时一个tube
     }
 }

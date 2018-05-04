@@ -16,6 +16,12 @@ class Gadmin extends Common
     private $userModel;
     protected $args = [];
 
+    protected function auth()
+    {
+        // TODO: Implement auth() method.
+        return true;
+    }
+
     public function __construct(){
         $this->model = new Article();
         $this->userModel = new User();

@@ -39,4 +39,8 @@ class AppUser extends Common
         }
         return true;
     }
+
+    public function insertUser($user) {
+        $this->insert($user);
+    }
 }

@@ -52,6 +52,7 @@ class DB
             $pdoStatement = self::$_conn->prepare($sql);
             $pdoStatement->execute();
         }
+        Logger::sqlLog('sql: ' . $sql . 'params: ' . json_encode($params));
         return $pdoStatement;
     }
 

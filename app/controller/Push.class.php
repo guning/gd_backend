@@ -55,8 +55,8 @@ class Push extends Common
                     'platform' => (int) $rdata['platform'],
                     'title' => substr($rdata['title'], 0, 10),
                     'content' => substr($rdata['content'], 0, 50),
-                    'target' => (int) $rdata['group']['type'],
-                    'target_extra' => $rdata['group']['ext'],
+                    'target' => (int) $rdata['target']['type'],
+                    'target_extra' => $rdata['target']['ext'],
                     'time' => $rdata['time']
                 ]);
                 break;
